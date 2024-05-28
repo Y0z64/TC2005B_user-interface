@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import Userinfo, { User } from "../components/Userinfo";
 
-const url = "http://localhost:3000";
-
 export default function ShowUsers() {
   const [users, setUsers] = useState<User[]>();
+
+  const dbUrl = import.meta.env.VITE_DATABASE_URL;
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(url + "/");
+        console.log("fetching data");
+        const response = await fetch(dbUrl + "/");
         const data = (await response.json()) as User[];
+        console.log(data);
         setUsers(data);
       } catch (err) {
         console.log(err);
@@ -18,7 +20,7 @@ export default function ShowUsers() {
     }
 
     fetchData();
-  }, []);
+  }, [dbUrl]);
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
