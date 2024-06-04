@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Userinfo, { User } from "../components/Userinfo";
+import Card, { User } from "../components/Card";
 
 export default function ShowUsers() {
   const [users, setUsers] = useState<User[]>();
@@ -23,21 +23,13 @@ export default function ShowUsers() {
   }, [dbUrl]);
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center">
+    <div className="w-screen h-screen flex flex-col justify-start items-center overflow-auto">
       <h1>Users</h1>
-      <table>
-        <thead>
-          <tr>
-            <th className="px-4 py-2 w-[9.375rem]">User</th>
-            <th className="px-4 py-2 w-[9.375rem]">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users?.map((user, index) => (
-            <Userinfo key={index} name={user.name} email={user.email} />
-          ))}
-        </tbody>
-      </table>
+      <div className="flex flex-col mt-3 w-fit h-full justify-start items-center space-y-3">
+        {users?.map((user, index) => (
+          <Card key={index} id={user.id} name={user.name} email={user.email} />
+        ))}
+      </div>
     </div>
   );
 }
