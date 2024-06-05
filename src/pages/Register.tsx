@@ -145,7 +145,7 @@ export default function Register() {
         <button
           type="submit"
           id="submit"
-          className="h-16 mt-8 font-semibold text-2xl  rounded-xl w-full justify-center flex items-center hover:scale-105 transition-all ease-in-out duration-200 bg-cyan-500 hover:bg-cyan-300"
+          className="h-16 mt-8 font-semibold text-2xl  rounded-xl w-full justify-center flex items-center hover:scale-105 transition-all ease-in-out duration-200 bg-[#00c896] hover:bg-[#6ae0b7]"
         >
           Submit
         </button>

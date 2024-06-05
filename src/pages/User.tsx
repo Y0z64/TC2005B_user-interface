@@ -18,10 +18,9 @@ export type Description = {
   name: string;
   description: string;
   prescription?: string;
-}
+};
 
-export default function UserInfo({ userId }: Props) {
-
+export default function User({ userId }: Props) {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const prescriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -29,7 +28,7 @@ export default function UserInfo({ userId }: Props) {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [description, setDescription] = useState<Description | undefined>("");
+  const [description, setDescription] = useState<Description | undefined>();
   const [error, setError] = useState<string | null>(null);
 
   const fetchUser = async () => {
@@ -59,13 +58,13 @@ export default function UserInfo({ userId }: Props) {
       setDescription(data);
     } catch (error) {
       setError((error as Error).message);
-    } 
-  }
+    }
+  };
 
   useEffect(() => {
     fetchUser();
     fetchDescription();
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const handleGenerateHelp = async() => {
@@ -84,7 +83,7 @@ export default function UserInfo({ userId }: Props) {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
-    console.log("Submitting form...")
+    console.log("Submitting form...");
 
     const description = descriptionRef.current?.value;
     const prescription = prescriptionRef.current?.value;
