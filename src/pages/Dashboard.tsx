@@ -25,11 +25,18 @@ export default function Dashboard() {
     fetchData();
   }, [dbUrl]);
 
+  const filteredUsers = users?.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="w-screen h-screen flex flex-col justify-start items-center overflow-auto">
       <NavigationBar>
         <Link href="/">
           <p>Dashboard</p>
+        </Link>
+        <Link href="/register">
+          <p>Registro</p>
         </Link>
         <Link href="/">
           <p></p>
@@ -47,8 +54,13 @@ export default function Dashboard() {
       <h1>Users</h1>
       <div className="flex mt-3 w-full h-full justify-center items-start">
         <div className="grid grid-cols-2 gap-4 h-full grid-rows-10">
-          {users?.map((user, index) => (
-            <Card key={index} id={user.id} name={user.name} email={user.email} />
+          {filteredUsers?.map((user, index) => (
+            <Card
+              key={index}
+              id={user.id}
+              name={user.name}
+              email={user.email}
+            />
           ))}
         </div>
       </div>
