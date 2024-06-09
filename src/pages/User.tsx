@@ -103,30 +103,30 @@ export default function User({ userId }: Props) {
         <Link href="/register">
           <p>Registro</p>
         </Link>
-        <Link href="/">
-          <p></p>
+        <Link href="/ask">
+          <p>Ask</p>
         </Link>
       </NavigationBar>
       <div className="flex sm:flex-col w-full h-full justify-center items-center flex-col mt-3">
         <div className="flex justify-center items-center w-full h-full space-x-4 flex-grow">
-          <div className="w-[43.125rem] h-full justify-start items-center space-x-4 bg-slate-300 rounded-md px-4 flex flex-col py-10 overflow-y-auto">
+          <div className="overflow-x-hidden break-words w-[43.125rem] h-full justify-start items-center space-x-4 bg-slate-300 rounded-md px-4 flex flex-col py-10 overflow-y-auto">
             <img
               className="object-cover w-[10.9375rem] aspect-square rounded-full outline outline-gray-500"
               src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
               alt="user-image"
             />
             <span className="w-full flex flex-col items-left justify-center text-gray-700 pl-4">
-              <h2 className="text-gray-700 text-[33px]">Name</h2>
+              <h2 className="text-gray-700 text-[30px]">Name</h2>
               <p className="text-gray-500 text-[25px]">{user?.name}</p>
-              <h2 className="text-gray-700 text-[33px]">Email</h2>
+              <h2 className="text-gray-700 text-[30px]">Email</h2>
               <p className="text-gray-500 text-[25px]">{user?.email}</p>
-              <h2 className="text-gray-700 text-[33px]">Age</h2>
+              <h2 className="text-gray-700 text-[30px]">Age</h2>
               <p className="text-gray-500 text-[25px]">{user?.age}</p>
-              <h2 className="text-gray-700 text-[33px]">Gender</h2>
+              <h2 className="text-gray-700 text-[30px]">Gender</h2>
               <p className="text-gray-500 text-[25px]">{user?.gender}</p>
-              <h2 className="text-gray-700 text-[33px]">City</h2>
+              <h2 className="text-gray-700 text-[30px]">City</h2>
               <p className="text-gray-500 text-[25px]">{user?.city}</p>
-              <h2 className="text-gray-700 text-[33px]">Address</h2>
+              <h2 className="text-gray-700 text-[30px]">Address</h2>
               <p className="text-gray-500 text-[25px]">{user?.address}</p>
             </span>
           </div>

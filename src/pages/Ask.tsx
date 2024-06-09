@@ -16,6 +16,9 @@ type FilesResponse = {
 
 export default function Ask() {
   const [files, setFiles] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [pregunta, setPregunta] = useState("");
+  const [respuesta, setRespuesta] = useState("");
 
   function uploadFiles(f: File[]) {
     setFiles(f);
@@ -30,7 +33,7 @@ export default function Ask() {
     try {
       const fileUrls = files.map((file) => URL.createObjectURL(file));
 
-      const response = await fetch(beURL + "/nearbyy/" + `ask`, {
+      const response = await fetch(beURL + "/nearbyy" + `/upload`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,6 +61,26 @@ export default function Ask() {
     }
   }
 
+  async function getResponse(message: string) {
+    setLoading(true);
+    try {
+      console.log("fetching nearbyy response");
+      const response = await fetch(beURL + "/nearbyy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: message }),
+      });
+      const result = await response.json();
+      const prescription = await result.response;
+      setRespuesta(prescription);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  }
+
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center overflow-auto">
       <NavigationBar>
@@ -71,10 +94,14 @@ export default function Ask() {
       <div className="flex flex-col h-full w-[40.625rem] justify-start items-center pt-6 p-4 ">
         <h1 className="mb-3">Ask a question</h1>
         <span className="text-xl">
-          Ask a question here to you knowledge base or add a document
+          Has una pregunta a la base de conocimiento de Nearbyy o agrega un
+          archivo
+        </span>
+        <span className="text-md text-yellow-400">
+          No se pueden subir archivos desde host local
         </span>
         <div className="w-full h-full flex flex-col justify-start items-center mt-4">
-          <h2 className="text-2xl w-full text-left -mb-2">Upload files</h2>
+          <h2 className="text-2xl w-full text-left -mb-2">Subir archivos</h2>
           <FileDrag
             files={files}
             onUpload={uploadFiles}
@@ -83,18 +110,37 @@ export default function Ask() {
             formats={["txt", "pdf", "md", "mdx", "doc", "docx", "html"]}
           />
           <button
-            onClick={() => {
+            onClick={async () => {
               sendFiles();
             }}
             className="w-3/4 h-12 mt-2 mb-4 hover:bg-blue-500 hover:border-blue-500 transition-all"
           >
             Submit
           </button>
+          <span className="text-2xl w-full text-left mb-2">Pregunta</span>
           <textarea
-            name="input"
-            id="input"
-            className="w-full h-[8.125rem] overflow-auto justify-center bg-[#3D3D3D] rounded-xl p-2 hover:border-transparent"
+            name="pregunta"
+            id="pregunta"
+            value={pregunta}
+            onChange={(e) => setPregunta(e.target.value)}
+            className="w-full h-[12rem] overflow-auto justify-center bg-[#3D3D3D] rounded-xl p-2 hover:border-transparent mb-6"
           />
+          <span className="text-2xl w-full text-left mb-2">Respuesta</span>
+          <textarea
+            name="output"
+            id="output"
+            value={loading ? "Loading..." : respuesta}
+            readOnly
+            className="w-full h-[12rem] overflow-auto justify-center bg-[#3D3D3D] rounded-xl p-2 hover:border-transparent"
+          />
+          <button
+            onClick={async () => {
+              getResponse(pregunta);
+            }}
+            className="w-3/4 h-12 mt-2 mb-4 hover:bg-blue-500 hover:border-blue-500 transition-all"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

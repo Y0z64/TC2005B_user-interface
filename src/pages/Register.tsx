@@ -1,13 +1,16 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
 
 export default function Register() {
+  const [_, setLocation] = useLocation();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -16,7 +19,7 @@ export default function Register() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await fetch(dbUrl + "/createUser", {
+    const response = await fetch(dbUrl + "/users" + "/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,11 +27,10 @@ export default function Register() {
       body: JSON.stringify({
         name,
         email,
-        address1: city,
-        address2: address,
+        city,
+        address,
         age,
         gender,
-        description,
       }),
     });
 
@@ -43,6 +45,13 @@ export default function Register() {
       console.log(response.json());
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      setLocation("/")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success]);
 
   return (
     <div className="flex flex-col space-y-4 h-screen w-screen justify-center items-center">
@@ -128,20 +137,7 @@ export default function Register() {
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           className="h-12 text-lg w-full rounded-xl border-2 mb-4 border-gray-400 hover:border-white transition-all ease-in-out duration-200 bg-gray-400 bg-opacity-25 pl-3"
-        />
-
-        <label
-          htmlFor="description"
-          className="text-white text-2xl font-semibold w-full text-left mb-[0.1875rem]"
-        >
-          Description
-        </label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="h-24 text-lg w-full rounded-xl border-2 mb-4 border-gray-400 hover:border-white transition-all ease-in-out duration-200 bg-gray-400 bg-opacity-25 pl-3"
-        />
+        />  
         <button
           type="submit"
           id="submit"
