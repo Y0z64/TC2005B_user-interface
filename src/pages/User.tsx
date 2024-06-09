@@ -62,8 +62,6 @@ export default function User({ userId }: Props) {
       const result = await response.json();
       const prescription = await result.response;
       setPrescription(prescription);
-      sendPrescription(description, prescription);
-      fetchDescriptions();
     } catch (err) {
       console.log(err);
     }
@@ -156,16 +154,28 @@ export default function User({ userId }: Props) {
                   id="prescription"
                   className="w-full h-full p-2 overflow-y-auto bg-gray-400 rounded-lg mb-4 outline outline-[3px] outline-gray-500 text-gray-900"
                   value={loadingPrescription ? "Loading..." : prescription}
-                  readOnly
+                  onChange={(e) => setPrescription(e.target.value)}
+                  readOnly={loadingPrescription}
                 />
               </div>
               <button
                 type="submit"
                 id="submit"
                 name="submit"
-                className="h-24 w-full bg-gray-500 flex tracking-wide hover:outline-gray-800 outline outline-transparent hover:bg-gray-800 transition-all ease-in-out duration-50  hover:border-0 justify-center items-center text-2xl"
+                className="h-24 w-full bg-gray-500 flex tracking-wide outline outline-transparent hover:outline-gray-800 hover:bg-gray-800 transition-all ease-in-out duration-50 hover:border-transparent justify-center items-center text-2xl"
               >
-                Submit
+                Generar ayuda
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  sendPrescription(description, prescription);
+                  fetchDescriptions();
+                }}
+                name="guardar"
+                className="h-24 w-full mt-2 bg-gray-500 flex tracking-wide outline outline-transparent hover:outline-gray-800 hover:bg-gray-800 transition-all ease-in-out duration-50  hover:border-transparent justify-center items-center text-2xl"
+              >
+                Guardar
               </button>
             </form>
           </div>
