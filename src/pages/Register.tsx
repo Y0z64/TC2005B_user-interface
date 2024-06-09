@@ -11,7 +11,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const dbUrl = import.meta.env.VITE_DATABASE_URL;
+  const dbUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();

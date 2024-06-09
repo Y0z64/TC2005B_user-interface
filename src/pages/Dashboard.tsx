@@ -7,7 +7,7 @@ export default function Dashboard() {
   const [users, setUsers] = useState<User[]>();
   const [search, setSearch] = useState<string>("");
 
-  const dbUrl = import.meta.env.VITE_DATABASE_URL;
+  const dbUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     async function fetchData() {

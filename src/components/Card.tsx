@@ -4,6 +4,10 @@ export type User = {
   id: string;
   name: string;
   email: string;
+  age?: number;
+  gender?: string;
+  city?: string;
+  address?: string
 };
 
 export default function Card({id, email }: User) {
