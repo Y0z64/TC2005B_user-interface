@@ -91,6 +91,7 @@ export default function User({ userId }: Props) {
   useEffect(() => {
     fetchData();
     fetchDescriptions();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dbUrl, userId]);
 
   return (

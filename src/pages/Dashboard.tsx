@@ -38,8 +38,8 @@ export default function Dashboard() {
         <Link href="/register">
           <p>Registro</p>
         </Link>
-        <Link href="/">
-          <p></p>
+        <Link href="/ask">
+          <p>Ask</p>
         </Link>
         <div className="flex justify-center items-center w-fit h-fit">
           <input
